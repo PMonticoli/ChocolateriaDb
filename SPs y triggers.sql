@@ -292,3 +292,280 @@ BEGIN
 END //
 
 
+##################### SOCIOS #####################
+-- NEW Socio
+CREATE PROCEDURE spRegistrarSocio(
+IN idUsuario1 int,
+IN nombre1 varchar(30),
+IN apellido1 varchar(30),
+IN domicilio1 varchar(50),
+IN email1 varchar(40),
+IN dni1 int,
+IN telefono1 varchar(20)
+)
+BEGIN
+    INSERT INTO socios (idUsuario, nombre, apellido,domicilio,email,dni,telefono,fechaAlta)
+    VALUES (idUsuario1,nombre1,apellido1,domicilio1,email1,dni1,telefono1,NOW());
+END //
+
+-- GET all socios
+CREATE PROCEDURE spObtenerSocios()
+BEGIN
+	select id, dni, nombre, apellido,fechaBaja from socios;
+END //
+
+-- GET by ID
+CREATE PROCEDURE spObtenerSocioById(
+	IN idSocio int
+)
+BEGIN
+	select * from socios where id = idSocio;
+END //
+
+-- GET by DNI
+CREATE PROCEDURE spObtenerSocioByDNI(
+	IN dni1 int
+)
+BEGIN
+	select * from socios where dni = dni1;
+END //
+
+
+-- Modificar Socio
+CREATE PROCEDURE spModificarSocio(
+	IN nombre1 varchar(30),
+    IN apellido1 varchar(30),
+    IN domicilio1 varchar(50),
+    IN email1 varchar(40),
+    IN telefono1 varchar(20),
+    IN idSocio int
+)
+BEGIN
+	UPDATE socios SET nombre = nombre1,
+    apellido = apellido1, domicilio = domicilio1,
+    email = email1, telefono = telefono1
+    WHERE id = idSocio;
+END //
+
+-- DELETE
+CREATE PROCEDURE spBorrarSocio(
+IN id int
+)
+BEGIN
+	DELETE 
+    FROM socios s
+    WHERE s.id = id;
+END //
+
+-- Dar de baja
+CREATE PROCEDURE spDarDeBajaSocio(
+IN idSocio1 int,
+OUT status tinyint
+)
+BEGIN
+	DECLARE count int;
+	SELECT count(*) INTO count FROM socios s where s.id = idSocio1 and s.fechaBaja IS NULL;
+    IF (count = 1) THEN
+	BEGIN
+		UPDATE socios set fechaBaja = NOW() where id=idSocio1;
+		SET status = 1;
+    END;
+    ELSE SET status = 0;
+    END IF;
+END//
+
+
+##################### PROMOCIONES #####################
+-- NEW
+CREATE PROCEDURE spRegistrarPromocion(
+IN nombre1 varchar(50),
+IN descripcion1 varchar(100),
+IN precioPuntos1 mediumint,
+IN fechaDesde1 datetime,
+IN fechaHasta1 datetime,
+OUT id int
+)
+BEGIN
+    INSERT INTO promociones (nombre, descripcion, precioPuntos, fechaDesde, fechaHasta)
+    VALUES (nombre1, descripcion1, precioPuntos1, fechaDesde1, fechaHasta1);
+    SET id := last_insert_id();
+END //
+
+-- NEW DETALLE
+CREATE PROCEDURE spRegistrarDetallePromocion(
+IN idPromocion1 int, 
+IN idProducto1 int,
+IN cantidad1 tinyint
+)
+BEGIN
+    INSERT INTO detallepromocion (idPromocion, idProducto, cantidad)
+    Values (idPromocion1, idProducto1, cantidad1);
+END //
+
+-- GET all promociones
+CREATE PROCEDURE spObtenerPromociones()
+BEGIN
+	select p.id, p.nombre,p.descripcion,p.precioPuntos,p.fechaDesde,p.fechaHasta
+    from promociones p;
+END //
+
+-- GET detalles de una promocion
+CREATE PROCEDURE spObtenerDetallesPromocion(
+	IN id int
+)
+BEGIN
+    select dp.id , pr.nombre as nombreProducto,
+    cantidad from detallepromocion dp
+    join productos pr on pr.id = dp.idProducto
+    where idPromocion = id;
+END //
+
+-- GET promociones vigentes
+CREATE PROCEDURE spObtenerPromocionesVigentes()
+BEGIN 
+    SELECT * from promociones
+    where now() between fechaDesde and fechaHasta;
+END //
+
+-- Actualizar estado de pedido
+CREATE PROCEDURE spActualizarEstadoPedido(
+	IN idEstado1 int,
+    IN idPedido1 int
+)
+BEGIN
+	UPDATE chocolateriaDB.pedidos set idEstado = idEstado1 where id = idPedido1;
+END //
+
+-- Canjear promocion
+CREATE PROCEDURE spCanjearPuntos(
+	IN idPromocion1 int,
+    IN idSocio1 int
+)
+BEGIN
+	SELECT id, precioPuntos INTO @idPromo, @puntosConsumidos
+    FROM promociones WHERE id = idPromocion1;
+	INSERT INTO movimientospuntos (idPromocion, idSocio, puntos)
+    values (@idPromo, idSocio1, @puntosConsumidos);
+    SET @idMov := last_insert_id();
+    
+    SELECT id INTO @idPV FROM puntosventa WHERE nombre = 'Web';
+    SELECT id INTO @idEst FROM estadospedido WHERE nombre = 'Pagado';
+    INSERT INTO pedidos (idPuntoVenta, idSocio, idEstado, observaciones, fechaPedido)
+    values (@idPV, idSocio1, @idEst, CONCAT('Según movimiento con ID ', @idMov), NOW());
+END //
+
+-- Editar promoción
+CREATE PROCEDURE spEditarPromocion(
+	IN idPromocion1 int,
+    IN nombre1 varchar(50),
+    IN descripcion1 varchar(100),
+    IN precioPuntos1 mediumint,
+    IN fechaDesde1 datetime,
+    IN fechaHasta1 datetime
+)
+BEGIN
+	UPDATE promociones SET nombre = nombre1,
+    descripcion = descripcion1, precioPuntos = precioPuntos1,
+    fechaDesde = fechaDesde1, fechaHasta = fechaHasta1
+    WHERE id = idPromocion1;
+END //
+
+-- Terminar promoción
+CREATE PROCEDURE spTerminarPromocion(
+	IN idPromocion1 int
+)
+BEGIN
+	UPDATE promociones
+    SET fechaHasta = NOW()
+    WHERE id = idPromocion1;
+END //
+
+##################### EMPLEADOS #####################
+
+-- NEW
+CREATE PROCEDURE spRegistrarEmpleado(
+IN idUsuario1 int,
+IN nombre1 varchar(30),
+IN apellido1 varchar(30),
+IN telefono1 varchar(50),
+IN email1 varchar(40),
+IN dni1 int
+)
+BEGIN
+    INSERT INTO socios (idUsuario, nombre, apellido,domicilio,email,dni,telefono,fechaAlta)
+    VALUES (idUsuario1,nombre1,apellido1,telefono1,email1,dni1,NOW());
+END //
+
+
+##################### TIPOS DE PAGO #####################
+-- GET all tipos de pago
+CREATE PROCEDURE spObtenerTiposPago()
+BEGIN
+	select id,nombre from tipospago;
+END //
+
+-- POST cobro
+CREATE PROCEDURE spCobrar(
+IN idPedido1 int,
+IN idTipoPago1 int,
+IN idEmpleado1 int,
+IN codigoAutorizacion1 int,
+IN montoCobrado1 double
+)
+BEGIN 
+	INSERT INTO cobros(idPedido,idTipoPago,idEmpleado,fechaCobro,codigoAutorizacion,montoCobrado) 
+    VALUES (idPedido1,idTipoPago1,idEmpleado1,NOW(),codigoAutorizacion1,montoCobrado1);
+    UPDATE pedidos set idEstado = 2 where id=idPedido1;
+END //
+
+-- GET all estados de pedido
+CREATE PROCEDURE spObtenerEstadosPedido()
+BEGIN
+	select id,nombre from estadosPedido;
+END //
+
+-- GET puntos by idSocio
+CREATE PROCEDURE spObtenerPuntosDeSocio(
+    IN idSocio1 int
+)
+BEGIN
+	select ifnull(a.puntosPositivos,0) - ifnull(b.puntosNegativos,0) as puntos
+        from (
+            select idSocio, sum(puntos) as puntosPositivos
+            from movimientospuntos
+            where idSocio = idSocio1
+            and idDetallePedido is not null
+            group by idSocio
+        ) as a left join 
+        (
+            select idSocio, sum(puntos) as puntosNegativos
+            from movimientospuntos
+            where idSocio = idSocio1
+            and idPromocion is not null
+            group by idSocio
+        ) as b
+        on a.idSocio = b.idSocio;
+END //
+
+DELIMITER ;
+
+-- TRIGGER sumar puntos a socio
+DELIMITER $$
+CREATE TRIGGER after_cobros_insert
+AFTER INSERT
+ON cobros FOR EACH ROW
+BEGIN
+	SELECT idSocio INTO @idSocio
+    FROM pedidos 
+    WHERE id = NEW.idPedido;
+    IF @idSocio IS NOT NULL THEN
+        INSERT INTO movimientospuntos (idDetallePedido, idSocio, puntos) 
+        SELECT idDetalle, @idSocio, puntosGanados
+		FROM detallespedido 
+		WHERE idPedido = NEW.idPedido;
+    END IF;
+END$$;
+
+DELIMITER ;
+
+
