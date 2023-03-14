@@ -21,7 +21,7 @@ values (2, 'Empleado', 'Juan', '3525509890', 'juan@hotmail.com', 345123, NOW(), 
 INSERT into chocolateriadb.empleados (idUsuario, nombre, apellido, telefono, email, dni, fechaAlta, fechaBaja)
 values (3, 'Admin', 'Chocolateria', '3512548963', 'admin@hotmail.com', 40698325, NOW(), NULL);
 INSERT into chocolateriadb.empleados (idUsuario, nombre, apellido, telefono, email, dni, fechaAlta, fechaBaja)
-values (5, 'Pablo', 'Empleado', '345214321', 'pablo@hotmail.com', 421345, NOW(), NULL);
+values (2, 'Empleado', 'Pablo', '345214321', 'pablo@hotmail.com', 421345, NOW(), NULL);
 
 -- Puntos de venta
 INSERT INTO chocolateriadb.puntosventa (nombre) values ('Sucursal Chocolateria - Caja 1');
@@ -55,28 +55,28 @@ INSERT INTO chocolateriadb.estadospedido (nombre) values('Cancelado');
 
 -- Productos
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de bombones surtidos', 7000.00, 'Bombones de chocolate blanco y negro', null, true, true, 600, '');
+values ('Caja de bombones surtidos', 7000.00, 'Bombones de chocolate blanco y negro', null, true, true, 600, '../../../../assets/imgProductos/cajaBombones.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de chocolates mix', 5000.00, 'Caja de chocolates varios', null, true, true, 500, '');
+values ('Caja de chocolates mix', 5000.00, 'Caja de chocolates varios', null, true, true, 500, '../../../../assets/imgProductos/cajaChocolates.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de chocolates en rama', 4000.00, 'Chocolate en rama blanco y negro.', null, true, true, 450, '');
+values ('Caja de chocolates en rama', 4000.00, 'Chocolate en rama blanco y negro.', null, true, true, 450, '../../../../assets/imgProductos/cajaBombones.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Corazón gigante', 3000.00, 'Chocolate con forma de corazón', null, true, true, 400, '');
+values ('Corazón gigante', 3000.00, 'Chocolate con forma de corazón', null, true, true, 400, '../../../../assets/imgProductos/chocolateRama.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de alfajores chocolate negro', 1800.00, 'Alfajores chocolate negro 6 unidades', null, true, true, 250, '');
+values ('Caja de alfajores chocolate negro', 1800.00, 'Alfajores chocolate negro 6 unidades', null, true, true, 250, '../../../../assets/imgProductos/alfajoresNegro.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de alfajores chocolate blanco', 1800.00, 'Alfajores chocolate blanco 6 unidades', null, true, true, 250, '');
+values ('Caja de alfajores chocolate blanco', 1800.00, 'Alfajores chocolate blanco 6 unidades', null, true, true, 250, '../../../../assets/imgProductos/alfajoresBlanco.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de golosinas surtida', 1300.00, 'Golosinas surtidas', null, true, true, 150, '');
+values ('Caja de golosinas surtida', 1300.00, 'Golosinas surtidas', null, true, true, 150, '../../../../assets/imgProductos/cajaGolosinas.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Tazas', 1300.00, 'Taza en caja para regalar', null, true, true, 150, '');
+values ('Tazas', 1300.00, 'Taza en caja para regalar', null, true, true, 150, '../../../../assets/imgProductos/tazas.jpg');
 
 
 -- Promociones
