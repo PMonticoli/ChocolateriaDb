@@ -10,7 +10,7 @@ INSERT INTO chocolateriadb.tipospago (nombre) values ('Tarjeta de Crédito');
 INSERT INTO chocolateriadb.tipospago (nombre) values ('Mercado Pago');
 
 -- Usuarios
-INSERT INTO chocolateriadb.usuarios (idRol, usuario, contrasenia, fechaAlta) values (1, "chochouser", "pablo123", NOW());
+INSERT INTO chocolateriadb.usuarios (idRol, usuario, contrasenia, fechaAlta) values (1, "chocouser", "pablo123", NOW());
 INSERT INTO chocolateriadb.usuarios (idRol, usuario, contrasenia, fechaAlta) values (2, "chocoempleado", "pablo123", NOW());
 INSERT INTO chocolateriadb.usuarios (idRol, usuario, contrasenia, fechaAlta) values (3, "chocoadmin", "pablo123", NOW());
 
