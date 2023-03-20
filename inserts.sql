@@ -67,10 +67,10 @@ INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones
 values ('Corazón gigante', 3000.00, 'Chocolate con forma de corazón', null, true, true, 400, '../../../../assets/imgProductos/chocolateRama.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de alfajores chocolate negro', 1800.00, 'Alfajores chocolate negro 6 unidades', null, true, true, 250, '../../../../assets/imgProductos/alfajoresNegro.jpg');
+values ('Alfajores chocolate negro', 1800.00, 'Alfajores chocolate negro 6 unidades', null, true, true, 250, '../../../../assets/imgProductos/alfajoresNegro.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de alfajores chocolate blanco', 1800.00, 'Alfajores chocolate blanco 6 unidades', null, true, true, 250, '../../../../assets/imgProductos/alfajoresBlanco.jpg');
+values ('Alfajores chocolate blanco', 1800.00, 'Alfajores chocolate blanco 6 unidades', null, true, true, 250, '../../../../assets/imgProductos/alfajoresBlanco.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
 values ('Caja de golosinas surtida', 1300.00, 'Golosinas surtidas', null, true, true, 150, '../../../../assets/imgProductos/cajaGolosinas.jpg');
