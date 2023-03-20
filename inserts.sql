@@ -31,7 +31,7 @@ INSERT INTO chocolateriadb.puntosventa (nombre) values ('Web');
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
 values (1,'Pablo','Montícoli','Int Cespdes 245','pablo@hotmail.com','423053','352550323',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
-values (4,'Eduardo','Montícoli','ovidio lagos','eduardo@hotmail.com','423456','3525508233',NOW(),NULL);
+values (null,'Eduardo','Montícoli','ovidio lagos','eduardo@hotmail.com','423456','3525508233',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
 values (null,'Lionel','Messi','Barceclona 123','messi@hotmail.com','32506567','3525181222',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
@@ -112,7 +112,7 @@ INSERT INTO chocolateriaDB.movimientospuntos (idPromocion, idDetallePedido, idSo
 (null, 2, 1, 300);
 
 INSERT INTO chocolateriaDB.movimientospuntos (idPromocion, idDetallePedido, idSocio, puntos) values
-(null, 2, 2, 900);
+(null, 2, 1, 900);
 
 -- 2
 INSERT INTO chocolateriaDB.pedidos
@@ -133,7 +133,7 @@ INSERT INTO chocolateriaDB.detallespedido
 (3, 3, 1, 4000, 450, 'Chocolate en rama blanco y negro');
 
 INSERT INTO chocolateriaDB.movimientospuntos (idPromocion, idDetallePedido, idSocio, puntos) values
-(null, 5, 2, 450);
+(null, 3, 2, 450);
 
 -- Cobros
 INSERT INTO cobros(idPedido,idTipoPago,idEmpleado,fechaCobro,codigoAutorizacion,montoCobrado) values(1,1,null,NOW(),455,760);
