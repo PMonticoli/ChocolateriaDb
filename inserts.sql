@@ -24,7 +24,7 @@ INSERT into chocolateriadb.empleados (idUsuario, nombre, apellido, telefono, ema
 values (2, 'Empleado', 'Pablo', '345214321', 'pablo@hotmail.com', 421345, NOW(), NULL);
 
 -- Puntos de venta
-INSERT INTO chocolateriadb.puntosventa (nombre) values ('Sucursal Chocolateria - Caja 1');
+INSERT INTO chocolateriadb.puntosventa (nombre) values ('Sucursal Olbap-Chocolates');
 INSERT INTO chocolateriadb.puntosventa (nombre) values ('Web');
 
 -- Socios
