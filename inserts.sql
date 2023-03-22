@@ -76,7 +76,7 @@ INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones
 values ('Caja de golosinas surtida', 1300.00, 'Golosinas surtidas', null, true, true, 130, '../../../../assets/imgProductos/cajaGolosinas.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Tazas', 1300.00, 'Taza en caja para regalar', null, true, true, 130, '../../../../assets/imgProductos/tazas.jpg');
+values ('Tazas', 1300.00, 'Taza de cerámica con frase y diseño', null, true, true, 130, '../../../../assets/imgProductos/tazas.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
 values ('Tableta de chocolate amargo', 850.00, '80g de chocolate con 65% cacao y 0% azúcar.Libre de gluten, sin TACC. Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/tabletaChocolate.jpg');
@@ -94,7 +94,7 @@ INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones
 values ('Almendras Bañadas en Chocolate', 1200.00, 'Paila de almendras con chocolate con leche. Libre de gluten. Producto sin TACC. Apto celiacos.', null, true, true, 120, '../../../../assets/imgProductos/almendras.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Bombones y Trufas', 2.300, 'Lata rellena con una selección de bombones y trufas, contiene 120g.', null, true, true, 85, '../../../../assets/imgProductos/lataBombones.jpg');
+values ('Bombones y Trufas', 2300.00, 'Lata rellena con una selección de bombones y trufas, contiene 120g.', null, true, true, 85, '../../../../assets/imgProductos/lataBombones.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
 values ('Turron chocolate con almendra', 850.00, 'Turron de chocolate relleno con almendras. Contiene 250g.Libre de gluten. Sin TACC. Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/chocolateAlmendra.jpg');
