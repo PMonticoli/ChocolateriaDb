@@ -55,28 +55,49 @@ INSERT INTO chocolateriadb.estadospedido (nombre) values('Cancelado');
 
 -- Productos
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de bombones surtidos', 7000.00, 'Bombones de chocolate blanco y negro', null, true, true, 600, '../../../../assets/imgProductos/cajaBombones.jpg');
+values ('Caja de bombones surtidos', 4000.00, 'Bombones de chocolate blanco y negro', null, true, true, 400, '../../../../assets/imgProductos/cajaBombones.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de chocolates mix', 5000.00, 'Caja de chocolates varios', null, true, true, 500, '../../../../assets/imgProductos/cajaChocolates.jpg');
+values ('Caja de chocolates mix', 4000.00, 'Caja de chocolates varios', null, true, true, 400, '../../../../assets/imgProductos/cajaChocolates.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de chocolates en rama', 4000.00, 'Chocolate en rama blanco y negro.', null, true, true, 450, '../../../../assets/imgProductos/cajaBombones.jpg');
+values ('Caja de chocolates en rama', 4200.00, 'Chocolate en rama blanco y negro.', null, true, true, 420, '../../../../assets/imgProductos/chocolateRama.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Corazón gigante', 3000.00, 'Chocolate con forma de corazón', null, true, true, 400, '../../../../assets/imgProductos/chocolateRama.jpg');
+values ('Caja de San Valentin', 3800.00, 'Chocolate con forma de corazón', null, true, true, 380, '../../../../assets/imgProductos/cajaRegalo.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Alfajores chocolate negro', 1800.00, 'Alfajores chocolate negro 6 unidades', null, true, true, 250, '../../../../assets/imgProductos/alfajoresNegro.jpg');
+values ('Alfajores chocolate negro', 1800.00, 'Alfajores chocolate negro 6 unidades', null, true, true, 180, '../../../../assets/imgProductos/alfajoresNegro.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Alfajores chocolate blanco', 1800.00, 'Alfajores chocolate blanco 6 unidades', null, true, true, 250, '../../../../assets/imgProductos/alfajoresBlanco.jpg');
+values ('Alfajores chocolate blanco', 1800.00, 'Alfajores chocolate blanco 6 unidades', null, true, true, 180, '../../../../assets/imgProductos/alfajoresBlanco.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Caja de golosinas surtida', 1300.00, 'Golosinas surtidas', null, true, true, 150, '../../../../assets/imgProductos/cajaGolosinas.jpg');
+values ('Caja de golosinas surtida', 1300.00, 'Golosinas surtidas', null, true, true, 130, '../../../../assets/imgProductos/cajaGolosinas.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Tazas', 1300.00, 'Taza en caja para regalar', null, true, true, 150, '../../../../assets/imgProductos/tazas.jpg');
+values ('Tazas', 1300.00, 'Taza en caja para regalar', null, true, true, 130, '../../../../assets/imgProductos/tazas.jpg');
+
+INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
+values ('Tableta de chocolate amargo', 850.00, '80g de chocolate con 65% cacao y 0% azúcar.Libre de gluten, sin TACC. Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/tabletaChocolate.jpg');
+
+INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
+values ('Tejas 70% cacao', 850.00, 'Finas láminas de chocolate amargo 70%. Caja de 60g. Producto sin ingredientes de origen animal. Apto veganos. Producto kosher.', null, true, true, 800, '../../../../assets/imgProductos/tejas.jpg');
+
+INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
+values ('Tableta puro chocolate con leche', 850.00, 'Esta tableta es de puro chocolate con leche. Presentación en caja de 80g. Producto kosher. Producto sin TACC. Apto celíacos.', null, true, true, 85, '../../../../assets/imgProductos/tabletaChocolateLeche.jpg');
+
+INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
+values ('Bombones con licor', 850.00, 'rellenos con crema de Amaretto Disaronno, Baileys, Cointreau, Chivas Regal 12 años, Absinthe y Absolut frambuesa.Caja de 6 unidades. Libre de gluten. Producto sin TACC.Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/bombonesLicor.jpg');
+
+INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
+values ('Almendras Bañadas en Chocolate con Leche', 1200.00, 'Paila de almendras con chocolate con leche. Libre de gluten. Producto sin TACC. Apto celiacos.', null, true, true, 120, '../../../../assets/imgProductos/almendras.jpg');
+
+INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
+values ('Bombones y Trufas', 2.300, 'Lata rellena con una selección de bombones y trufas, contiene 120g.', null, true, true, 85, '../../../../assets/imgProductos/lataBombones.jpg');
+
+INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
+values ('Turron chocolate con almendra', 850.00, 'Turron de chocolate relleno con almendras. Contiene 250g.Libre de gluten. Producto sin TACC. Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/chocolateAlmendra.jpg');
 
 
 -- Promociones
