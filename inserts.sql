@@ -82,7 +82,7 @@ INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones
 values ('Tableta de chocolate amargo', 850.00, '80g de chocolate con 65% cacao y 0% azúcar.Libre de gluten, sin TACC. Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/tabletaChocolate.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Tejas 70% cacao', 850.00, 'Finas láminas de chocolate amargo 70%. Caja de 60g. Producto sin ingredientes de origen animal. Apto veganos. Producto kosher.', null, true, true, 800, '../../../../assets/imgProductos/tejas.jpg');
+values ('Tejas 70% cacao', 850.00, 'Láminas de chocolate amargo 70%. Caja de 60g.Sin ingredientes de origen animal. Apto veganos.', null, true, true, 800, '../../../../assets/imgProductos/tejas.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
 values ('Tableta puro chocolate con leche', 850.00, 'Esta tableta es de puro chocolate con leche. Presentación en caja de 80g. Producto kosher. Producto sin TACC. Apto celíacos.', null, true, true, 85, '../../../../assets/imgProductos/tabletaChocolateLeche.jpg');
