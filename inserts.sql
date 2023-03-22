@@ -91,7 +91,7 @@ INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones
 values ('Bombones con licor', 850.00, 'Bombones rellenos con licor.Caja de 6 unidades. Libre de gluten. Producto sin TACC.Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/bombonesLicor.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Almendras Bañadas en Chocolate con Leche', 1200.00, 'Paila de almendras con chocolate con leche. Libre de gluten. Producto sin TACC. Apto celiacos.', null, true, true, 120, '../../../../assets/imgProductos/almendras.jpg');
+values ('Almendras Bañadas en Chocolate', 1200.00, 'Paila de almendras con chocolate con leche. Libre de gluten. Producto sin TACC. Apto celiacos.', null, true, true, 120, '../../../../assets/imgProductos/almendras.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
 values ('Bombones y Trufas', 2.300, 'Lata rellena con una selección de bombones y trufas, contiene 120g.', null, true, true, 85, '../../../../assets/imgProductos/lataBombones.jpg');
