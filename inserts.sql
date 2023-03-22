@@ -85,10 +85,10 @@ INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones
 values ('Tejas 70% cacao', 850.00, 'Láminas de chocolate amargo 70%. Caja de 60g.Sin ingredientes de origen animal. Apto veganos.', null, true, true, 800, '../../../../assets/imgProductos/tejas.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Tableta puro chocolate con leche', 850.00, 'Esta tableta es de puro chocolate con leche. Presentación en caja de 80g. Producto kosher. Producto sin TACC. Apto celíacos.', null, true, true, 85, '../../../../assets/imgProductos/tabletaChocolateLeche.jpg');
+values ('Tableta puro chocolate con leche', 850.00, 'Tableta es de puro chocolate con leche. Caja de 80g Producto sin TACC. Apto celíacos.', null, true, true, 85, '../../../../assets/imgProductos/tabletaChocolateLeche.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Bombones con licor', 850.00, 'rellenos con crema de Amaretto Disaronno, Baileys, Cointreau, Chivas Regal 12 años, Absinthe y Absolut frambuesa.Caja de 6 unidades. Libre de gluten. Producto sin TACC.Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/bombonesLicor.jpg');
+values ('Bombones con licor', 850.00, 'Bombones rellenos con licor.Caja de 6 unidades. Libre de gluten. Producto sin TACC.Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/bombonesLicor.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
 values ('Almendras Bañadas en Chocolate con Leche', 1200.00, 'Paila de almendras con chocolate con leche. Libre de gluten. Producto sin TACC. Apto celiacos.', null, true, true, 120, '../../../../assets/imgProductos/almendras.jpg');
@@ -97,7 +97,7 @@ INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones
 values ('Bombones y Trufas', 2.300, 'Lata rellena con una selección de bombones y trufas, contiene 120g.', null, true, true, 85, '../../../../assets/imgProductos/lataBombones.jpg');
 
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-values ('Turron chocolate con almendra', 850.00, 'Turron de chocolate relleno con almendras. Contiene 250g.Libre de gluten. Producto sin TACC. Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/chocolateAlmendra.jpg');
+values ('Turron chocolate con almendra', 850.00, 'Turron de chocolate relleno con almendras. Contiene 250g.Libre de gluten. Sin TACC. Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/chocolateAlmendra.jpg');
 
 
 -- Promociones
