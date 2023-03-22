@@ -99,6 +99,8 @@ values ('Bombones y Trufas', 2300.00, 'Lata rellena con una selección de bombon
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
 values ('Turron chocolate con almendra', 850.00, 'Turron de chocolate relleno con almendras. Contiene 250g.Libre de gluten. Sin TACC. Apto celiacos.', null, true, true, 85, '../../../../assets/imgProductos/chocolateAlmendra.jpg');
 
+INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
+values ('Crema de mani y cacao', 850.00, 'Crema de marroc con mani y cacao artesanal', null, true, true, 85, '../../../../assets/imgProductos/cremaMani.jpg');
 
 -- Promociones
 INSERT INTO chocolateriadb.promociones (nombre, descripcion, precioPuntos, fechaDesde, fechaHasta) values
