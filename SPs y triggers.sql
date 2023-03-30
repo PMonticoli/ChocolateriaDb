@@ -209,7 +209,7 @@ BEGIN
     left join socios so on p.idSocio = so.id
     left join empleados em on p.idEmpleado = em.id
     join estadospedido ep on p.idEstado = ep.id
-    order by fechaPedido asc;
+    order by fechaPedido desc;
 END //
 
 -- GET Pedidos pendientes
@@ -225,7 +225,8 @@ BEGIN
     left join socios so on p.idSocio = so.id
     left join empleados em on p.idEmpleado = em.id
     join estadospedido ep on p.idEstado = ep.id
-    where ep.id = 1 or ep.id = 2;
+    where ep.id = 1 or ep.id = 2
+    order by fechaPedido desc;
 END //
 
 -- GET Pedido by ID
