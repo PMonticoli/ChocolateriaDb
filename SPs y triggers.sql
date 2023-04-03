@@ -293,6 +293,17 @@ BEGIN
 END //
 
 
+CREATE PROCEDURE spObtenerPedidosPorFecha(
+IN fechaDesde1 datetime,
+IN fechaHasta1 datetime
+)
+BEGIN
+    select *
+    from pedidos p join detallespedido dt on p.id = dt.idPedido
+    where p.fechaPedido between  fechaDesde1 and fechaHasta1
+    order by fechaPedido desc;
+END //
+
 ##################### SOCIOS #####################
 -- NEW Socio
 CREATE PROCEDURE spRegistrarSocio(
