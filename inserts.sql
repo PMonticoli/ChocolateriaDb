@@ -104,11 +104,11 @@ values ('Crema de mani y cacao', 850.00, 'Crema de marroc con mani y cacao artes
 
 -- Promociones
 INSERT INTO chocolateriadb.promociones (nombre, descripcion, precioPuntos, fechaDesde, fechaHasta) values
-('Promo alfajores chocolate blanco', 'Llevate 2 cajas y te llevas un chocolate de regalo', 500, DATE_SUB(NOW(), INTERVAL 1 DAY), DATE_ADD(NOW(), INTERVAL 10 DAY));
+('Promo alfajores chocolate blanco-negro', 'Dos cajas de alfajores de 6 unidades c/u', 400, DATE_SUB(NOW(), INTERVAL 1 DAY), DATE_ADD(NOW(), INTERVAL 10 DAY));
 INSERT INTO chocolateriadb.promociones (nombre, descripcion, precioPuntos, fechaDesde, fechaHasta) values
-('Promo chocolate en rama', 'Llevate 2 cajas de chocolate en rama y te llevas una taza a elección', 900, DATE_SUB(NOW(), INTERVAL 15 DAY), DATE_ADD(NOW(), INTERVAL 15 DAY));
+('Promo chocolate en rama', 'Dos cajas de chocolate en rama negro y blanco', 900, DATE_SUB(NOW(), INTERVAL 15 DAY), DATE_ADD(NOW(), INTERVAL 15 DAY));
 INSERT INTO chocolateriadb.promociones (nombre, descripcion, precioPuntos, fechaDesde, fechaHasta) values
-('Promo caja chocolates mix', 'Llevate 2 cajas y te llevas una taza a elección', 1000, DATE_SUB(NOW(), INTERVAL 18 DAY), DATE_SUB(NOW(), INTERVAL 3 DAY));
+('Promo caja chocolates mix', 'Dos cajas de chocolate mix', 850, DATE_SUB(NOW(), INTERVAL 18 DAY), DATE_SUB(NOW(), INTERVAL 3 DAY));
 
 
 -- Detalle promociones
