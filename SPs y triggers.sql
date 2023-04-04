@@ -483,7 +483,7 @@ BEGIN
 END //
 
 -- Terminar promoción
-CREATE PROCEDURE spTerminarPromocion(
+CREATE PROCEDURE spFinalizarPromocion(
 	IN idPromocion1 int
 )
 BEGIN
