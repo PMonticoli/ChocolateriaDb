@@ -29,22 +29,22 @@ INSERT INTO chocolateriadb.puntosventa (nombre) values ('Web');
 
 -- Socios
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
-values (1,'Pablo','Montícoli','Int Cespdes 245','pablo@hotmail.com','423053','352550323',NOW(),NULL);
+values (1,'Pablo','Montícoli','Int Cespdes 245','pablo@hotmail.com','42162165','352550323',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
-values (null,'Eduardo','Montícoli','ovidio lagos','eduardo@hotmail.com','423456','3525508233',NOW(),NULL);
+values (null,'Eduardo','Montícoli','ovidio lagos','eduardo@hotmail.com','16542147','3525508233',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
 values (null,'Lionel','Messi','Barceclona 123','messi@hotmail.com','32506567','3525181222',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
-values (null,'Juan','Oller','Olmos 555','juan@hotmail.com','4442344','035344566',NOW(),NULL);
+values (null,'Juan','Oller','Olmos 555','juan@hotmail.com','42423443','035344566',NOW(),NULL);
 
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
 values (null,'Rodrigo','De Pual','Madrid 255','rodrigo@hotmail.com','38000874','0351546987',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
-values (null,'Pablo','Montícoli','Olmos 234','pablo@hotmail.com','444333','0351567890',NOW(),NULL);
+values (null,'Pablo','Montícoli','Olmos 234','pablo@hotmail.com','4443332','0351567890',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
-values (null,'Eduardo','Montícoli','24 septiembre','eduardo@hotmail.com','444222','0351567880',NOW(),NULL);
+values (null,'Eduardo','Montícoli','24 septiembre','eduardo@hotmail.com','44422236','0351567880',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
-values (null,'Angel','Di Maria','Italia 123','angelito@hotmail.com','35025412','0351852459',NOW(),NULL);
+values (null,'Angel','Di Maria','Italia 123','angelito@hotmail.com','32045456','0351852459',NOW(),NULL);
 
 
 -- Estados de pedido
