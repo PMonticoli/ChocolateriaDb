@@ -433,7 +433,7 @@ BEGIN
 END //
 
 -- GET promociones vigentes
-CREATE PROCEDURE spObtenerPromocionesVigentes()
+CREATE PROCEDURE spObtenerPromocionesDisponibles()
 BEGIN 
     SELECT * from promociones
     where now() between fechaDesde and fechaHasta;
