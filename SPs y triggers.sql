@@ -95,7 +95,7 @@ END//
 -- GET ALL
 CREATE PROCEDURE spObtenerProductos()
 BEGIN
-    SELECT id, nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen
+    SELECT id, nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen,stock
 	FROM productos;
 END //
 -- GET ACTIVOS
@@ -110,7 +110,7 @@ CREATE PROCEDURE spObtenerProductoPorID(
 	IN id int
 )
 BEGIN
-    SELECT p.id, p.nombre, p.precio, p.descripcion, p.observaciones, p.activo, p.disponible, p.puntosGanados, p.urlImagen
+    SELECT p.id, p.nombre, p.precio, p.descripcion, p.observaciones, p.activo, p.disponible, p.puntosGanados, p.urlImagen, p.stock
 	FROM productos p
     WHERE p.id = id;
 END //
@@ -166,6 +166,19 @@ BEGIN
     SET activo = false
     WHERE id = id1;
 END //
+
+-- UPDATE stock
+CREATE PROCEDURE spActualizarStock(
+IN i int,
+IN stock int
+)
+BEGIN
+	UPDATE productos 
+    SET stock = stock
+    WHERE id = i;
+END //
+
+
 
 ##################### PEDIDOS #####################
 -- NEW
