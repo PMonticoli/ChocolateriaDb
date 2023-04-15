@@ -86,6 +86,7 @@ CREATE TABLE `chocolateriaDB`.`Productos` (
 	`disponible` boolean NOT NULL,
 	`puntosGanados` int NOT NULL,
 	`urlImagen` varchar(255),
+	`stock` int,
 	PRIMARY KEY (`id`)
 );
 
