@@ -101,7 +101,7 @@ END //
 -- GET ACTIVOS
 CREATE PROCEDURE spObtenerProductosActivos()
 BEGIN
-    SELECT id, nombre, precio, descripcion, disponible, puntosGanados, urlImagen
+    SELECT id, nombre, precio, descripcion, disponible, puntosGanados, urlImagen, stock
 	FROM productos
     WHERE activo = true;
 END //
@@ -181,7 +181,7 @@ END //
 
 
 ##################### PEDIDOS #####################
--- NEW
+-- Registrar pedido
 CREATE PROCEDURE spRegistrarPedido(
 IN idPuntoVenta1 int,
 IN idSocio1 int,
@@ -195,19 +195,45 @@ BEGIN
     SET id := last_insert_id();
 END //
 
--- NEW DETALLE
+-- Registrar detalle pedido
 CREATE PROCEDURE spRegistrarDetallePedido(
-IN idPedido1 int, 
-IN idProducto1 int,
-IN cantidad1 tinyint,
-IN precioUnitario1 double,
-IN puntosGanados1 int,
-IN comentarios1 varchar(150)
+ IN idPedido1 int, 
+ IN idProducto1 int,
+ IN cantidad1 tinyint,
+ IN precioUnitario1 double,
+ IN puntosGanados1 int,
+ IN comentarios1 varchar(150)
 )
 BEGIN
-    INSERT INTO detallespedido (idPedido, idProducto, cantidad, precioUnitario, puntosGanados, comentarios)
-    Values (idPedido1, idProducto1, cantidad1, precioUnitario1, puntosGanados1, comentarios1);
-END //
+  DECLARE stock_producto INT;
+  
+  START TRANSACTION;
+  
+  -- Verificar si el producto está disponible y hay suficiente stock
+  SELECT disponible, stock INTO @disponible, @stock
+  FROM Productos
+  WHERE id = idProducto1;
+  
+  IF @disponible = 0 OR @stock < cantidad1 THEN
+    ROLLBACK;
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Producto no disponible o insuficiente stock';
+  ELSE
+    
+    -- Registrar el detalle del pedido
+    INSERT INTO DetallesPedido (idPedido, idProducto, cantidad, precioUnitario, puntosGanados)
+    VALUES (idPedido1, idProducto1, cantidad1, 
+    (SELECT precio FROM Productos WHERE id = idProducto1), 
+    (SELECT puntosGanados FROM Productos WHERE id = idProducto1));
+    
+    -- Actualizar el stock del producto
+    UPDATE Productos
+    SET stock = stock - cantidad1
+    WHERE id = idProducto1;
+    
+    COMMIT;
+  END IF;
+END$$
+
 
 -- GET all Pedidos
 CREATE PROCEDURE spObtenerPedidos()
@@ -590,7 +616,4 @@ BEGIN
 		WHERE idPedido = NEW.idPedido;
     END IF;
 END$$;
-
-DELIMITER ;
-
 
