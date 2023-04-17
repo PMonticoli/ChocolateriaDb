@@ -196,6 +196,7 @@ BEGIN
 END //
 
 -- Registrar detalle pedido
+DELIMITER $$
 CREATE PROCEDURE spRegistrarDetallePedido(
  IN idPedido1 int, 
  IN idProducto1 int,
@@ -617,3 +618,4 @@ BEGIN
     END IF;
 END$$;
 
+DELIMITER ;
