@@ -196,7 +196,7 @@ BEGIN
 END //
 
 -- Registrar detalle pedido
-DELIMITER $$
+-- DELIMITER $$
 CREATE PROCEDURE spRegistrarDetallePedido(
  IN idPedido1 int, 
  IN idProducto1 int,
@@ -233,7 +233,7 @@ BEGIN
     
     COMMIT;
   END IF;
-END$$
+END //
 
 
 -- GET all Pedidos
@@ -599,10 +599,9 @@ BEGIN
         on a.idSocio = b.idSocio;
 END //
 
-DELIMITER ;
 
 -- TRIGGER sumar puntos a socio
-DELIMITER $$
+-- DELIMITER $$
 CREATE TRIGGER after_cobros_insert
 AFTER INSERT
 ON cobros FOR EACH ROW
@@ -616,6 +615,6 @@ BEGIN
 		FROM detallespedido 
 		WHERE idPedido = NEW.idPedido;
     END IF;
-END$$;
-
+-- END$$;
+END //
 DELIMITER ;
