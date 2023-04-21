@@ -503,7 +503,7 @@ BEGIN
     SELECT id INTO @idPV FROM puntosventa WHERE nombre = 'Web';
     SELECT id INTO @idEst FROM estadospedido WHERE nombre = 'Pagado';
     INSERT INTO pedidos (idPuntoVenta, idSocio, idEstado, observaciones, fechaPedido)
-    values (@idPV, idSocio1, @idEst, CONCAT('Según movimiento con ID ', @idMov), NOW());
+    values (@idPV, idSocio1, @idEst, CONCAT('Canje de promoción con ID ', @idPromo), NOW());
 END //
 
 -- Editar promoción
