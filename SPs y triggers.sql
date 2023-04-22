@@ -461,15 +461,17 @@ BEGIN
     from promociones p;
 END //
 
--- GET detalles de una promocion
+
 CREATE PROCEDURE spObtenerDetallesPromocion(
-	IN id int
+	IN idMovimientoPuntos int
 )
 BEGIN
-    select dp.id , pr.nombre as nombreProducto,
-    cantidad from detallepromocion dp
-    join productos pr on pr.id = dp.idProducto
-    where idPromocion = id;
+	SELECT pr.nombre as 'producto', dt.cantidad, m.puntos   
+	FROM movimientospuntos m 
+    JOIN promociones p ON m.idPromocion = p.id   
+	JOIN detallepromocion dt ON p.id = dt.idPromocion   
+	JOIN productos pr ON pr.id = dt.idProducto      
+	WHERE m.id = idMovimientoPuntos;
 END //
 
 -- GET promociones vigentes
@@ -482,13 +484,11 @@ END //
 -- GET promociones canjeadas
 CREATE PROCEDURE spObtenerPromocionesCanjeadas()
 BEGIN
-SELECT s.nombre, s.apellido, m.idSocio, m.id, p.nombre as 'promocion', pr.nombre as 'producto', dt.cantidad, m.puntos   
+SELECT m.id,CONCAT(s.apellido,' ',s.nombre) as 'socio',p.nombre as 'promocion'
 FROM movimientospuntos m   
 JOIN promociones p ON m.idPromocion = p.id   
-JOIN detallepromocion dt ON p.id = dt.idPromocion   
-JOIN productos pr ON pr.id = dt.idProducto   
 JOIN socios s ON s.id = m.idSocio   
-GROUP BY m.idSocio, m.id, p.nombre, pr.nombre, dt.cantidad, m.puntos
+GROUP BY m.id,CONCAT(s.apellido,' ',s.nombre), p.nombre
 LIMIT 0, 1000;
 END //
 
