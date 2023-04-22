@@ -154,3 +154,12 @@ CREATE TABLE `chocolateriaDB`.`Cobros` (
 	FOREIGN KEY (`idTipoPago`) REFERENCES TiposPago(`id`),
 	FOREIGN KEY (`idEmpleado`) REFERENCES Empleados(`id`)
 );
+
+CREATE TABLE `chocolateriaDB`.`ProductosPromocion`(
+	`idPromocion` int NOT NULL,
+	`idProducto` int NOT NULL,
+	`cantidad` mediumint NOT NULL,
+	PRIMARY KEY (`idPromocion`, `idProducto`),
+	FOREIGN KEY (`idPromocion`) REFERENCES Promociones(id),
+	FOREIGN KEY (`idProducto`) REFERENCES Productos(id)
+);
