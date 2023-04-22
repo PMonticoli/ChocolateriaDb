@@ -479,6 +479,20 @@ BEGIN
     where now() between fechaDesde and fechaHasta;
 END //
 
+-- GET promociones canjeadas
+CREATE PROCEDURE spObtenerPromocionesCanjeadas()
+BEGIN
+SELECT s.nombre, s.apellido, m.idSocio, m.id, p.nombre as 'promocion', pr.nombre as 'producto', dt.cantidad, m.puntos   
+FROM movimientospuntos m   
+JOIN promociones p ON m.idPromocion = p.id   
+JOIN detallepromocion dt ON p.id = dt.idPromocion   
+JOIN productos pr ON pr.id = dt.idProducto   
+JOIN socios s ON s.id = m.idSocio   
+GROUP BY m.idSocio, m.id, p.nombre, pr.nombre, dt.cantidad, m.puntos
+LIMIT 0, 1000;
+END //
+
+
 -- Actualizar estado de pedido
 CREATE PROCEDURE spActualizarEstadoPedido(
 	IN idEstado1 int,
@@ -488,22 +502,33 @@ BEGIN
 	UPDATE chocolateriaDB.pedidos set idEstado = idEstado1 where id = idPedido1;
 END //
 
+
+
 -- Canjear promocion
 CREATE PROCEDURE spCanjearPuntos(
-	IN idPromocion1 int,
-    IN idSocio1 int
+IN idPromocion1 int,
+IN idSocio1 int
 )
 BEGIN
-	SELECT id, precioPuntos INTO @idPromo, @puntosConsumidos
-    FROM promociones WHERE id = idPromocion1;
-	INSERT INTO movimientospuntos (idPromocion, idSocio, puntos)
-    values (@idPromo, idSocio1, @puntosConsumidos);
-    SET @idMov := last_insert_id();
-    
-    SELECT id INTO @idPV FROM puntosventa WHERE nombre = 'Web';
-    SELECT id INTO @idEst FROM estadospedido WHERE nombre = 'Pagado';
-    INSERT INTO pedidos (idPuntoVenta, idSocio, idEstado, observaciones, fechaPedido)
-    values (@idPV, idSocio1, @idEst, CONCAT('Canje de promoción con ID ', @idPromo), NOW());
+-- Obtener los datos de la promoción
+SELECT id, precioPuntos INTO @idPromo, @puntosConsumidos
+FROM promociones WHERE id = idPromocion1;
+-- Insertar el registro de movimientospuntos
+INSERT INTO movimientospuntos (idPromocion, idSocio, puntos)
+VALUES (@idPromo, idSocio1, @puntosConsumidos);
+
+-- Obtener el id del registro insertado en movimientospuntos
+SET @idMov := last_insert_id();
+
+-- Insertar el detalle de la promoción
+INSERT INTO DetallePromocion (idProducto, cantidad, idPromocion)
+SELECT idProducto, cantidad, idPromocion1
+FROM ProductosPromocion
+WHERE idPromocion = idPromocion1;
+
+-- Obtener los ids de los puntos de venta y estados de pedido
+SELECT id INTO @idPV FROM puntosventa WHERE nombre = 'Web';
+SELECT id INTO @idEst FROM estadospedido WHERE nombre = 'Pagado';
 END //
 
 -- Editar promoción
@@ -618,3 +643,24 @@ BEGIN
 -- END$$;
 END //
 DELIMITER ;
+
+
+
+
+-- Canjear promocion spViejo
+-- CREATE PROCEDURE spCanjearPuntos(
+-- 	IN idPromocion1 int,
+--     IN idSocio1 int
+-- )
+-- BEGIN
+-- 	SELECT id, precioPuntos INTO @idPromo, @puntosConsumidos
+--     FROM promociones WHERE id = idPromocion1;
+-- 	INSERT INTO movimientospuntos (idPromocion, idSocio, puntos)
+--     values (@idPromo, idSocio1, @puntosConsumidos);
+--     SET @idMov := last_insert_id();
+    
+--     SELECT id INTO @idPV FROM puntosventa WHERE nombre = 'Web';
+--     SELECT id INTO @idEst FROM estadospedido WHERE nombre = 'Pagado';
+--     INSERT INTO pedidos (idPuntoVenta, idSocio, idEstado, observaciones, fechaPedido)
+--     values (@idPV, idSocio1, @idEst, CONCAT('Canje de promoción con ID ', @idPromo), NOW());
+-- END //
