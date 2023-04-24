@@ -489,6 +489,7 @@ FROM movimientospuntos m
 JOIN promociones p ON m.idPromocion = p.id   
 JOIN socios s ON s.id = m.idSocio   
 GROUP BY m.id,CONCAT(s.apellido,' ',s.nombre), p.nombre
+ORDER BY m.id desc
 LIMIT 0, 1000;
 END //
 
