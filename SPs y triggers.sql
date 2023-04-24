@@ -505,32 +505,78 @@ END //
 
 
 
--- Canjear promocion
+-- Canjear promocion con actualizacion de stock
 CREATE PROCEDURE spCanjearPuntos(
-IN idPromocion1 int,
-IN idSocio1 int
+    IN idPromocion1 int,
+    IN idSocio1 int
 )
 BEGIN
--- Obtener los datos de la promoción
-SELECT id, precioPuntos INTO @idPromo, @puntosConsumidos
-FROM promociones WHERE id = idPromocion1;
--- Insertar el registro de movimientospuntos
-INSERT INTO movimientospuntos (idPromocion, idSocio, puntos)
-VALUES (@idPromo, idSocio1, @puntosConsumidos);
+    -- Obtener los datos de la promoción
+    SELECT id, precioPuntos INTO @idPromo, @puntosConsumidos
+    FROM promociones WHERE id = idPromocion1;
+    
+    -- Verificar que hay suficiente stock para la promoción
+    SELECT SUM(dp.cantidad) INTO @totalProductos
+    FROM DetallePromocion dp
+    WHERE dp.idPromocion = idPromocion1;
+    
+    IF @totalProductos IS NULL OR @totalProductos <= 0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'No hay productos disponibles para esta promoción.';
+    END IF;
+    
+    -- Verificar que hay suficiente stock para los productos en la promoción
+    SELECT COUNT(*) INTO @noStock
+    FROM DetallePromocion dp
+    JOIN Productos p ON dp.idProducto = p.id
+    WHERE dp.idPromocion = idPromocion1 AND dp.cantidad > p.stock;
+    
+    IF @noStock > 0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'No hay suficiente stock para los productos en esta promoción.';
+    END IF;
+    
+    -- Insertar el registro de movimientospuntos
+    INSERT INTO movimientospuntos (idPromocion, idSocio, puntos)
+    VALUES (@idPromo, idSocio1, @puntosConsumidos);
+    
+    -- Obtener el id del registro insertado en movimientospuntos
+    SET @idMov := last_insert_id();
+    
 
--- Obtener el id del registro insertado en movimientospuntos
-SET @idMov := last_insert_id();
 
--- Insertar el detalle de la promoción
-INSERT INTO DetallePromocion (idProducto, cantidad, idPromocion)
-SELECT idProducto, cantidad, idPromocion1
-FROM ProductosPromocion
-WHERE idPromocion = idPromocion1;
+	-- Insertar el detalle de la promoción
+	INSERT INTO DetallePromocion (idProducto, cantidad, idPromocion)
+	SELECT idProducto, cantidad, idPromocion1
+	FROM DetallePromocion
+	WHERE idPromocion = idPromocion1
+	  AND idProducto NOT IN (
+		SELECT idProducto
+		FROM DetallePromocion
+		WHERE idPromocion = idPromocion1
+		  AND idProducto IS NOT NULL
+	  );
 
--- Obtener los ids de los puntos de venta y estados de pedido
-SELECT id INTO @idPV FROM puntosventa WHERE nombre = 'Web';
-SELECT id INTO @idEst FROM estadospedido WHERE nombre = 'Pagado';
+    
+    -- Actualizar el stock de los productos
+    UPDATE Productos p
+    JOIN DetallePromocion dp ON p.id = dp.idProducto
+    SET p.stock = p.stock - dp.cantidad
+    WHERE dp.idPromocion = idPromocion1 AND p.stock >= dp.cantidad;
+    
+    -- Verificar que se actualizaron todos los productos
+    SELECT ROW_COUNT() INTO @numActualizaciones;
+    
+    IF @numActualizaciones < @totalProductos THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'No hay suficiente stock para los productos en esta promoción.';
+    END IF;
+    
+    -- Obtener los ids de los puntos de venta y estados de pedido
+    SELECT id INTO @idPV FROM puntosventa WHERE nombre = 'Web';
+    SELECT id INTO @idEst FROM estadospedido WHERE nombre = 'Pagado';
 END //
+
 
 -- Editar promoción
 CREATE PROCEDURE spEditarPromocion(
@@ -645,23 +691,3 @@ BEGIN
 END //
 DELIMITER ;
 
-
-
-
--- Canjear promocion spViejo
--- CREATE PROCEDURE spCanjearPuntos(
--- 	IN idPromocion1 int,
---     IN idSocio1 int
--- )
--- BEGIN
--- 	SELECT id, precioPuntos INTO @idPromo, @puntosConsumidos
---     FROM promociones WHERE id = idPromocion1;
--- 	INSERT INTO movimientospuntos (idPromocion, idSocio, puntos)
---     values (@idPromo, idSocio1, @puntosConsumidos);
---     SET @idMov := last_insert_id();
-    
---     SELECT id INTO @idPV FROM puntosventa WHERE nombre = 'Web';
---     SELECT id INTO @idEst FROM estadospedido WHERE nombre = 'Pagado';
---     INSERT INTO pedidos (idPuntoVenta, idSocio, idEstado, observaciones, fechaPedido)
---     values (@idPV, idSocio1, @idEst, CONCAT('Canje de promoción con ID ', @idPromo), NOW());
--- END //
