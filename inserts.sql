@@ -102,20 +102,6 @@ values ('Turron chocolate con almendra', 850.00, 'Turron de chocolate relleno co
 INSERT INTO chocolateriadb.productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
 values ('Crema de mani y cacao', 850.00, 'Crema de marroc con mani y cacao artesanal', null, true, true, 85, '../../../../assets/imgProductos/cremaMani.jpg');
 
--- Promociones
-INSERT INTO chocolateriadb.promociones (nombre, descripcion, precioPuntos, fechaDesde, fechaHasta) values
-('Promo alfajores chocolate blanco-negro', 'Dos cajas de alfajores de 6 unidades c/u', 400, DATE_SUB(NOW(), INTERVAL 1 DAY), DATE_ADD(NOW(), INTERVAL 10 DAY));
-INSERT INTO chocolateriadb.promociones (nombre, descripcion, precioPuntos, fechaDesde, fechaHasta) values
-('Promo chocolate en rama', 'Dos cajas de chocolate en rama negro y blanco', 900, DATE_SUB(NOW(), INTERVAL 15 DAY), DATE_ADD(NOW(), INTERVAL 15 DAY));
-INSERT INTO chocolateriadb.promociones (nombre, descripcion, precioPuntos, fechaDesde, fechaHasta) values
-('Promo caja chocolates mix', 'Dos cajas de chocolate mix', 850, DATE_SUB(NOW(), INTERVAL 18 DAY), DATE_SUB(NOW(), INTERVAL 3 DAY));
-
-
--- Detalle promociones
-INSERT INTO chocolateriadb.detallepromocion (idPromocion, idProducto, cantidad) values (1, 6, 2);
-INSERT INTO chocolateriadb.detallepromocion (idPromocion, idProducto, cantidad) values (2, 3, 2);
-INSERT INTO chocolateriadb.detallepromocion (idPromocion, idProducto, cantidad) values (3, 2, 2);
-
 
 -- Pedidos y detalle pedidos
 -- 1
