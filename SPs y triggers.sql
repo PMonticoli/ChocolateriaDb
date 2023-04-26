@@ -484,7 +484,8 @@ END //
 -- GET promociones canjeadas
 CREATE PROCEDURE spObtenerPromocionesCanjeadas()
 BEGIN
-SELECT m.id,CONCAT(s.apellido,' ',s.nombre) as 'socio',p.nombre as 'promocion'
+SELECT CONCAT(s.apellido,' ',s.nombre) as 'nombreSocio',m.id,
+CONCAT(s.apellido,' ',s.nombre) as 'socio',p.nombre as 'promocion',p.nombre as 'nombrePromocion'
 FROM movimientospuntos m   
 JOIN promociones p ON m.idPromocion = p.id   
 JOIN socios s ON s.id = m.idSocio   
