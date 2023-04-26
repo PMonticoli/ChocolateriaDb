@@ -477,8 +477,20 @@ END //
 -- GET promociones vigentes
 CREATE PROCEDURE spObtenerPromocionesDisponibles()
 BEGIN 
-    SELECT * from promociones
-    where now() between fechaDesde and fechaHasta;
+    SELECT *
+    FROM promociones p
+    WHERE now() BETWEEN p.fechaDesde AND p.fechaHasta
+    AND NOT EXISTS (
+        SELECT *
+        FROM DetallePromocion dp
+        JOIN Productos pr ON dp.idProducto = pr.id
+        WHERE dp.idPromocion = p.id AND dp.cantidad > (
+            SELECT COALESCE(MIN(pr.stock), 0)
+            FROM DetallePromocion dp2
+            JOIN Productos pr ON dp2.idProducto = pr.id
+            WHERE dp2.idPromocion = p.id AND dp2.idProducto = dp.idProducto
+        )
+    );
 END //
 
 -- GET promociones canjeadas
