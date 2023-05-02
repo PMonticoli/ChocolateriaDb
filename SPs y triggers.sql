@@ -457,8 +457,9 @@ END //
 -- GET all promociones
 CREATE PROCEDURE spObtenerPromociones()
 BEGIN
-	select p.id, p.nombre,p.descripcion,p.precioPuntos,p.fechaDesde,p.fechaHasta
-    from promociones p;
+	SELECT p.id, p.nombre,p.descripcion,p.precioPuntos,p.fechaDesde,p.fechaHasta
+    FROM promociones p
+    ORDER BY p.fechaDesde desc;
 END //
 
 
