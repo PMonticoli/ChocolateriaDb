@@ -703,5 +703,83 @@ BEGIN
     END IF;
 -- END$$;
 END //
+
+##################### REPORTES #####################
+-- Cantidad de veces que vendi un determinado producto y promedio de unidades vendidas por pedido
+-- de cada producto 
+CREATE PROCEDURE spReporteProductos(
+IN fechaDesde datetime,
+IN fechaHasta datetime 
+)
+BEGIN
+select pr.id,pr.nombre,sum(dt.cantidad) as 'CantidadVendida',avg(dt.cantidad) as 'PromedioCantidad'
+from productos pr join detallespedido dt on pr.id=dt.idProducto
+join pedidos p on dt.idPedido = p.id
+WHERE fechaPedido between fechaDesde and fechaHasta
+group by p.id
+order by p.id;
+END//
+
+
+-- Socios con mas puntos 
+CREATE PROCEDURE spSociosConMasPuntos(
+IN limite int
+)
+BEGIN
+    select a.idSocio, CONCAT(s.apellido,' ',s.nombre) as 'socio', 
+    s.dni, ifnull(p.puntosPositivos,0) - ifnull(n.puntosNegativos,0) as puntos
+	from (
+		select idSocio, sum(puntos) as puntosPositivos
+		from movimientospuntos
+		where idDetallePedido is not null
+		group by idSocio
+	) as p left join 
+	(
+		select idSocio, sum(puntos) as puntosNegativos
+		from movimientospuntos
+		where idPromocion is not null
+		group by idSocio
+	) as n
+	on p.idSocio = n.idSocio 
+	join socios s on p.idSocio = s.id
+	order by puntos desc
+	limit limite;
+END //
+
+--  Cantidad de socios nuevos
+CREATE PROCEDURE spSociosNuevos(
+IN fechaDesde datetime,
+IN fechaHasta datetime
+)
+BEGIN
+	SELECT count(id) as 'cantSociosNuevos'
+    FROM socios
+    WHERE fechaAlta between fechaDesde and fechaHasta;
+END //
+
+-- Cantidad de socios dados de baja en un determinado periodo 
+CREATE PROCEDURE spSociosBaja(
+IN fechaDesde datetime,
+IN fechaHasta datetime
+)
+BEGIN
+	SELECT count(id) as 'cantidadSociosBaja' 
+	FROM socios
+	WHERE fechaBaja is not null and fechaBaja between fechaDesde and fechaHasta;
+END //
+
+-- Cantidad de pedidos por periodo que realizaron los socios
+CREATE PROCEDURE spCantPedidosPeriodo(
+IN fechaDesde datetime,
+IN fechaHasta datetime
+)
+BEGIN
+	SELECT s.id ID,CONCAT(s.apellido,' ',s.nombre) as 'socio',s.dni as 'DNI',count(p.id) as 'cantPedidos'
+    FROM socios s join pedidos p on s.id=p.idSocio
+    WHERE fechaAlta between fechaDesde and fechaHasta
+    GROUP BY socio
+	ORDER BY cantPedidos DESC;
+END //
+
 DELIMITER ;
 
