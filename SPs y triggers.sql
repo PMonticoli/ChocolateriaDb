@@ -726,7 +726,7 @@ CREATE PROCEDURE spSociosConMasPuntos(
 IN limite int
 )
 BEGIN
-    select a.idSocio, CONCAT(s.apellido,' ',s.nombre) as 'socio', 
+    select p.idSocio, CONCAT(s.apellido,' ',s.nombre) as 'socio', 
     s.dni, ifnull(p.puntosPositivos,0) - ifnull(n.puntosNegativos,0) as puntos
 	from (
 		select idSocio, sum(puntos) as puntosPositivos
