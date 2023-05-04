@@ -774,10 +774,10 @@ IN fechaDesde datetime,
 IN fechaHasta datetime
 )
 BEGIN
-	SELECT s.id ID,CONCAT(s.apellido,' ',s.nombre) as 'socio',s.dni as 'DNI',count(p.id) as 'cantPedidos'
+	SELECT s.id ID,CONCAT(s.apellido,' ',s.nombre) as 'socio',s.dni,count(p.id) as 'cantPedidos'
     FROM socios s join pedidos p on s.id=p.idSocio
     WHERE fechaAlta between fechaDesde and fechaHasta
-    GROUP BY socio
+    GROUP BY s.id,socio,s.dni
 	ORDER BY cantPedidos DESC;
 END //
 
