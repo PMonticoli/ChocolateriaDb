@@ -705,6 +705,7 @@ BEGIN
 END //
 
 ##################### REPORTES #####################
+-- Reporte PRODUCTOS
 -- Cantidad de veces que vendi un determinado producto y promedio de unidades vendidas por pedido
 -- de cada producto 
 CREATE PROCEDURE spReporteProductos(
@@ -721,7 +722,7 @@ BEGIN
     order by p.id;
 END//
 
-
+-- Reporte SOCIOS
 -- Socios con mas puntos 
 CREATE PROCEDURE spSociosConMasPuntos(
 IN limite int
@@ -747,6 +748,7 @@ BEGIN
 	limit limite;
 END //
 
+-- Reporte SOCIOS
 --  Cantidad de socios nuevos
 CREATE PROCEDURE spSociosNuevos(
 IN fechaDesde datetime,
@@ -758,6 +760,7 @@ BEGIN
     WHERE fechaAlta between fechaDesde and fechaHasta;
 END //
 
+-- Reporte SOCIOS
 -- Cantidad de socios dados de baja en un determinado periodo 
 CREATE PROCEDURE spSociosBaja(
 IN fechaDesde datetime,
@@ -769,6 +772,7 @@ BEGIN
 	WHERE fechaBaja is not null and fechaBaja between fechaDesde and fechaHasta;
 END //
 
+-- Reporte SOCIOS
 -- Cantidad de pedidos por periodo que realizaron los socios
 CREATE PROCEDURE spCantPedidosPeriodo(
 IN fechaDesde datetime,
@@ -780,6 +784,22 @@ BEGIN
     WHERE fechaAlta between fechaDesde and fechaHasta
     GROUP BY s.id,socio,s.dni
 	ORDER BY cantPedidos DESC;
+END //
+
+-- Reporte PROMOCIONES
+-- Cantidad de veces que se canjeo cada promocion
+CREATE PROCEDURE spReportePromociones(
+    IN fechaDesde1 DATETIME,
+    IN fechaHasta1 DATETIME
+)
+BEGIN
+    SELECT p.nombre AS 'nombrePromocion', p.descripcion, COUNT(mv.idDetallePedido) AS 'cantidadCanjeos'
+    FROM promociones p
+    JOIN detallepromocion dp ON p.id = dp.idPromocion
+    JOIN movimientospuntos mv ON dp.id = mv.idDetallePedido
+    WHERE p.fechaDesde BETWEEN fechaDesde1 AND fechaHasta1
+    GROUP BY p.id
+    ORDER BY cantidadCanjeos DESC;
 END //
 
 DELIMITER ;
