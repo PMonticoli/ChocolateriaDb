@@ -712,12 +712,13 @@ IN fechaDesde datetime,
 IN fechaHasta datetime 
 )
 BEGIN
-select pr.id,pr.nombre,sum(dt.cantidad) as 'CantidadVendida',avg(dt.cantidad) as 'PromedioCantidad'
-from productos pr join detallespedido dt on pr.id=dt.idProducto
-join pedidos p on dt.idPedido = p.id
-WHERE fechaPedido between fechaDesde and fechaHasta
-group by p.id
-order by p.id;
+    select p.id, p.nombre, sum(dt.cantidad) as 'cantidad', avg(dt.cantidad) as 'promedio'
+	from detallespedido dt join productos p
+	on dt.idProducto = p.id 
+	join pedidos pe on dt.idPedido = pe.id
+	where fechaPedido between fechaDesde and fechaHasta
+	group by p.id
+    order by p.id;
 END//
 
 
