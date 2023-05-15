@@ -816,7 +816,7 @@ BEGIN
     FROM cobros c join tipospago tp on c.idTipoPago = tp.id
     WHERE fechaCobro between fechaDesde and fechaHasta
     GROUP BY c.idTipoPago
-    ORDER BY tp.nombre asc;
+    ORDER BY totalCobro desc;
 END //
 
 DELIMITER ;
