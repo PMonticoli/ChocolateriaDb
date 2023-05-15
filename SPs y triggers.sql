@@ -806,5 +806,18 @@ BEGIN
     ORDER BY cantidadCanjeos DESC;
 END //
 
+-- Reporte COBROS
+CREATE PROCEDURE spReporteCobros(
+IN fechaDesde datetime,
+IN fechaHasta datetime
+)
+BEGIN
+	SELECT c.idTipoPago 'idTipoPago', tp.nombre, count(tp.id) 'cantidadCobros',sum(c.montoCobrado) 'totalCobro'
+    FROM cobros c join tipospago tp on c.idTipoPago = tp.id
+    WHERE fechaCobro between fechaDesde and fechaHasta
+    GROUP BY c.idTipoPago
+    ORDER BY tp.nombre asc;
+END //
+
 DELIMITER ;
 
