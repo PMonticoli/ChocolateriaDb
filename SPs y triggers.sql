@@ -618,22 +618,6 @@ BEGIN
     WHERE id = idPromocion1;
 END //
 
-##################### EMPLEADOS #####################
-
--- NEW
-CREATE PROCEDURE spRegistrarEmpleado(
-IN idUsuario1 int,
-IN nombre1 varchar(30),
-IN apellido1 varchar(30),
-IN telefono1 varchar(50),
-IN email1 varchar(40),
-IN dni1 int
-)
-BEGIN
-    INSERT INTO socios (idUsuario, nombre, apellido,domicilio,email,dni,telefono,fechaAlta)
-    VALUES (idUsuario1,nombre1,apellido1,telefono1,email1,dni1,NOW());
-END //
-
 
 ##################### TIPOS DE PAGO #####################
 -- GET all tipos de pago
