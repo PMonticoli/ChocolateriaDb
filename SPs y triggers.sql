@@ -96,14 +96,16 @@ END//
 CREATE PROCEDURE spObtenerProductos()
 BEGIN
     SELECT id, nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen,stock
-	FROM productos;
+	FROM productos
+    ORDER BY nombre asc;
 END //
 -- GET ACTIVOS
 CREATE PROCEDURE spObtenerProductosActivos()
 BEGIN
     SELECT id, nombre, precio, descripcion, disponible, puntosGanados, urlImagen, stock
 	FROM productos
-    WHERE activo = true;
+    WHERE activo = true
+    ORDER BY nombre asc;
 END //
 -- GET BY ID
 CREATE PROCEDURE spObtenerProductoPorID(
