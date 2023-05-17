@@ -128,7 +128,7 @@ IN url varchar(100)
 )
 BEGIN
     INSERT INTO productos (nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen)
-    VALUES (nom, pre, des, obs, act, disp, pg, url);
+    VALUES (nom, pre, des, obs, true, true, pg, url);
 END //
 
 -- UPDATE
