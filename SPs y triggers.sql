@@ -694,7 +694,7 @@ END //
 -- Reporte PRODUCTOS
 -- Cantidad de veces que vendi un determinado producto y promedio de unidades vendidas por pedido
 -- de cada producto 
-CREATE PROCEDURE spReporteProductos(
+CREATE PROCEDURE spReporteCantidadProd(
     IN fechaDesde datetime,
     IN fechaHasta datetime 
 )
@@ -702,14 +702,30 @@ BEGIN
     SELECT 
         p.id, 
         p.nombre, 
-        SUM(dt.cantidad) AS 'cantidad', 
+        SUM(dt.cantidad) AS 'cantidad'
+    FROM detallespedido dt 
+    JOIN productos p ON dt.idProducto = p.id 
+    JOIN pedidos pe ON dt.idPedido = pe.id
+    WHERE fechaPedido BETWEEN fechaDesde AND fechaHasta
+    GROUP BY p.id, p.nombre
+    ORDER BY cantidad DESC;
+END//
+
+CREATE PROCEDURE spReportePromedioProd(
+    IN fechaDesde datetime,
+    IN fechaHasta datetime 
+)
+BEGIN
+    SELECT 
+        p.id, 
+        p.nombre,  
         AVG(dt.cantidad) AS 'promedio'
     FROM detallespedido dt 
     JOIN productos p ON dt.idProducto = p.id 
     JOIN pedidos pe ON dt.idPedido = pe.id
     WHERE fechaPedido BETWEEN fechaDesde AND fechaHasta
     GROUP BY p.id, p.nombre
-    ORDER BY cantidad DESC, promedio DESC;
+    ORDER BY promedio DESC;
 END//
 
 -- Reporte SOCIOS
