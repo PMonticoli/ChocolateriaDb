@@ -107,6 +107,19 @@ BEGIN
     WHERE activo = true
     ORDER BY nombre asc;
 END //
+
+-- GET ACTIVOS FILTRADOS POR PRECIO
+CREATE PROCEDURE spProductosFiltrados(
+IN precioMin double,
+IN precioMax double
+)
+BEGIN
+    SELECT id, nombre, precio, descripcion, disponible, puntosGanados, urlImagen, stock
+	FROM productos
+    WHERE activo = true and precio between precioMin and precioMax
+    ORDER BY precio asc;
+END //
+
 -- GET BY ID
 CREATE PROCEDURE spObtenerProductoPorID(
 	IN id int
