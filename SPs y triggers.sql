@@ -513,7 +513,8 @@ END //
 CREATE PROCEDURE spObtenerPromocionesCanjeadas()
 BEGIN
 SELECT CONCAT(s.apellido,' ',s.nombre) as 'nombreSocio',m.id,
-CONCAT(s.apellido,' ',s.nombre) as 'socio',p.nombre as 'promocion',p.nombre as 'nombrePromocion'
+CONCAT(s.apellido,' ',s.nombre) as 'socio',p.nombre as 'promocion',p.nombre as 'nombrePromocion',
+fechaMovimiento as 'fechaCanjeada'
 FROM movimientospuntos m   
 JOIN promociones p ON m.idPromocion = p.id   
 JOIN socios s ON s.id = m.idSocio   
@@ -566,8 +567,8 @@ BEGIN
     END IF;
     
     -- Insertar el registro de movimientospuntos
-    INSERT INTO movimientospuntos (idPromocion, idSocio, puntos)
-    VALUES (@idPromo, idSocio1, @puntosConsumidos);
+    INSERT INTO movimientospuntos (idPromocion, idSocio, puntos,fechaMovimiento)
+    VALUES (@idPromo, idSocio1, @puntosConsumidos,now());
     
     -- Obtener el id del registro insertado en movimientospuntos
     SET @idMov := last_insert_id();
@@ -812,12 +813,12 @@ CREATE PROCEDURE spReportePromociones(
     IN fechaHasta1 DATETIME
 )
 BEGIN
-    SELECT p.nombre AS 'nombrePromocion', p.descripcion, COUNT(mv.idDetallePedido) AS 'cantidadCanjeos'
+    SELECT p.nombre AS 'nombrePromocion', p.descripcion, COUNT(DISTINCT mv.id) AS 'cantidadCanjeos'
     FROM promociones p
     JOIN detallepromocion dp ON p.id = dp.idPromocion
-    JOIN movimientospuntos mv ON dp.id = mv.idDetallePedido
-    WHERE p.fechaDesde BETWEEN fechaDesde1 AND fechaHasta1
-    GROUP BY p.id
+    JOIN movimientospuntos mv ON p.id = mv.idPromocion
+    WHERE mv.fechaMovimiento BETWEEN fechaDesde1 AND fechaHasta1
+    GROUP BY p.id, p.nombre, p.descripcion
     ORDER BY cantidadCanjeos DESC;
 END //
 
