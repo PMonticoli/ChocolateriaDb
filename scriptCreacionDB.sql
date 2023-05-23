@@ -129,11 +129,14 @@ CREATE TABLE `chocolateriaDB`.`MovimientosPuntos` (
 	`idDetallePedido` int,
 	`idSocio` int NOT NULL,
 	`puntos` mediumint NOT NULL,
+	`fechaMovimiento` datetime,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`idPromocion`) REFERENCES Promociones(`id`), 
 	FOREIGN KEY (`idDetallePedido`) REFERENCES DetallesPedido(`idDetalle`),
 	FOREIGN KEY (`idSocio`) REFERENCES Socios(`id`)
 );
+
+
   
 CREATE TABLE `chocolateriaDB`.`TiposPago`(
 	`id` int NOT NULL AUTO_INCREMENT,
