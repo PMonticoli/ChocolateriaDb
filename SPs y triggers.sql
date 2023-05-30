@@ -52,6 +52,7 @@ BEGIN
     AND idUsuario is null;
 END//
 
+-- Recuperar contraseña usuario
 CREATE PROCEDURE spRecuperarPassword(
     IN usuario1 varchar(30),
     IN contrasenia1 varchar(32)
