@@ -52,6 +52,31 @@ BEGIN
     AND idUsuario is null;
 END//
 
+CREATE PROCEDURE spRecuperarPassword(
+    IN usuario1 varchar(30),
+    IN contrasenia1 varchar(32)
+)
+BEGIN
+    DECLARE rowsFound INT;
+    DECLARE mensaje VARCHAR(100);
+
+    SELECT COUNT(*) INTO rowsFound
+    FROM Usuarios
+    WHERE usuario = usuario1 AND idRol = 1;
+
+    IF rowsFound > 0 THEN
+        UPDATE Usuarios
+        SET contrasenia = contrasenia1
+        WHERE usuario = usuario1 AND idRol = 1;
+
+        SET mensaje = 'Contraseña actualizada correctamente';
+    ELSE
+        SET mensaje = 'No se encontró ningún usuario con el nombre de usuario proporcionado';
+    END IF;
+
+    SELECT mensaje AS mensaje;
+END //
+
 -- Nuevo Usuario Empleado
 CREATE PROCEDURE spNuevoUsuarioEmpleado(
 IN usuario1 varchar(30),
