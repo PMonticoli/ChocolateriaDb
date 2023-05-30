@@ -40,7 +40,7 @@ values (null,'Juan','Oller','Olmos 555','juan@hotmail.com','42423443','035344566
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
 values (null,'Rodrigo','De Pual','Madrid 255','rodrigo@hotmail.com','38000874','0351546987',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
-values (null,'Pablo','Montícoli','Olmos 234','pablo@hotmail.com','4443332','0351567890',NOW(),NULL);
+values (null,'Javier','Montícoli','Olmos 234','javier@hotmail.com','4443332','0351567890',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
 values (null,'Eduardo','Montícoli','24 septiembre','eduardo@hotmail.com','44422236','0351567880',NOW(),NULL);
 INSERT INTO chocolateriadb.socios (idUsuario,nombre,apellido,domicilio,email,dni,telefono,fechaAlta,fechaBaja) 
