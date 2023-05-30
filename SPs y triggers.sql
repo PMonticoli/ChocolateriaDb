@@ -55,24 +55,27 @@ END//
 -- Recuperar contraseña usuario
 CREATE PROCEDURE spRecuperarPassword(
     IN usuario1 varchar(30),
-    IN contrasenia1 varchar(32)
+    IN contrasenia1 varchar(32),
+    IN dni1 int
 )
 BEGIN
     DECLARE rowsFound INT;
     DECLARE mensaje VARCHAR(100);
 
     SELECT COUNT(*) INTO rowsFound
-    FROM Usuarios
-    WHERE usuario = usuario1 AND idRol = 1;
+    FROM Usuarios u
+    INNER JOIN Socios s ON u.id = s.idUsuario
+    WHERE u.usuario = usuario1 AND u.idRol = 1 AND s.dni = dni1;
 
     IF rowsFound > 0 THEN
-        UPDATE Usuarios
-        SET contrasenia = contrasenia1
-        WHERE usuario = usuario1 AND idRol = 1;
+        UPDATE Usuarios u
+        INNER JOIN Socios s ON u.id = s.idUsuario
+        SET u.contrasenia = contrasenia1
+        WHERE u.usuario = usuario1 AND u.idRol = 1 AND s.dni = dni1;
 
         SET mensaje = 'Contraseña actualizada correctamente';
     ELSE
-        SET mensaje = 'No se encontró ningún usuario con el nombre de usuario proporcionado';
+        SET mensaje = 'No se encontró ningún usuario con el nombre de usuario proporcionado o el DNI ingresado no coincide';
     END IF;
 
     SELECT mensaje AS mensaje;
