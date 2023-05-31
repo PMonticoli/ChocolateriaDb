@@ -741,7 +741,8 @@ END //
 -- de cada producto 
 CREATE PROCEDURE spReporteCantidadProd(
     IN fechaDesde datetime,
-    IN fechaHasta datetime 
+    IN fechaHasta datetime,
+    IN limite int 
 )
 BEGIN
     SELECT 
@@ -753,12 +754,14 @@ BEGIN
     JOIN pedidos pe ON dt.idPedido = pe.id
     WHERE fechaPedido BETWEEN fechaDesde AND fechaHasta
     GROUP BY p.id, p.nombre
-    ORDER BY cantidad DESC;
+    ORDER BY cantidad DESC
+    LIMIT limite;
 END//
 
 CREATE PROCEDURE spReportePromedioProd(
     IN fechaDesde datetime,
-    IN fechaHasta datetime 
+    IN fechaHasta datetime,
+    IN limite int
 )
 BEGIN
     SELECT 
@@ -770,7 +773,8 @@ BEGIN
     JOIN pedidos pe ON dt.idPedido = pe.id
     WHERE fechaPedido BETWEEN fechaDesde AND fechaHasta
     GROUP BY p.id, p.nombre
-    ORDER BY promedio DESC;
+    ORDER BY promedio DESC
+    LIMIT limite;
 END//
 
 -- Reporte SOCIOS
