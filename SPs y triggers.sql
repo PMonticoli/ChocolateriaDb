@@ -124,7 +124,7 @@ END//
 -- GET ALL
 CREATE PROCEDURE spObtenerProductos()
 BEGIN
-    SELECT id, nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen,stock
+    SELECT id, nombre, precio, descripcion, observaciones, activo, disponible, puntosGanados, urlImagen,stock,fecha
 	FROM productos
     ORDER BY nombre asc;
 END //
@@ -213,14 +213,16 @@ END //
 
 -- UPDATE stock
 CREATE PROCEDURE spActualizarStock(
-IN i int,
-IN stock int
+    IN i INT,
+    IN stock INT
 )
 BEGIN
-	UPDATE productos 
-    SET stock = stock
+    UPDATE productos 
+    SET stock = stock,
+        fecha = NOW()
     WHERE id = i;
 END //
+
 
 
 
