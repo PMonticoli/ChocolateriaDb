@@ -39,17 +39,24 @@ END //
 
 -- Nuevo usuario socio
 CREATE PROCEDURE spNuevoUsuarioSocio(
-IN usuario1 varchar(30),
-IN contrasenia1 varchar(32),
-IN dniSocio1 int
+    IN usuario1 varchar(30),
+    IN contrasenia1 varchar(32),
+    IN dniSocio1 int
 )
 BEGIN
-	SELECT id into @idSoc from roles
-    WHERE nombre = 'Socio';
-	INSERT INTO usuarios(idRol, usuario, contrasenia, fechaAlta) values (@idSoc, usuario1, contrasenia1, NOW());
-    UPDATE socios set idUsuario = last_insert_id() 
-    WHERE dni = dniSocio1
-    AND idUsuario is null;
+    -- Verificar si el usuario ya existe
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        SELECT 'El nombre de usuario ya existe. Ingrese otro.' AS error_message;
+    END;
+
+    IF EXISTS (SELECT 1 FROM usuarios WHERE usuario = usuario1) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El nombre de usuario ya existe.';
+    ELSE
+        SELECT id INTO @idSoc FROM roles WHERE nombre = 'Socio';
+        INSERT INTO usuarios (idRol, usuario, contrasenia, fechaAlta) VALUES (@idSoc, usuario1, contrasenia1, NOW());
+        UPDATE socios SET idUsuario = LAST_INSERT_ID() WHERE dni = dniSocio1 AND idUsuario IS NULL;
+    END IF;
 END//
 
 -- Recuperar contraseña usuario
