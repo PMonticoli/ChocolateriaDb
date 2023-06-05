@@ -3,37 +3,56 @@ DELIMITER //
 
 -- Iniciar Sesion
 CREATE PROCEDURE spIniciarSesion(
-IN usuario1 varchar(30),
-IN contrasenia1 varchar(32)
+    IN usuario1 VARCHAR(30),
+    IN contrasenia1 VARCHAR(32),
+    IN aceptoTerminos BOOLEAN
 )
 BEGIN
-    declare role varchar(30);
-    select r1.nombre into role from usuarios u1
-    join roles r1 on r1.id = u1.idRol
-    where u1.usuario=usuario1 and u1.contrasenia=contrasenia1;
+    DECLARE role VARCHAR(30);
+    SELECT r1.nombre INTO role FROM usuarios u1
+    JOIN roles r1 ON r1.id = u1.idRol
+    WHERE u1.usuario = usuario1 AND u1.contrasenia = contrasenia1;
 
-	IF (role<>'Socio' AND role IS NOT NULL) THEN
-		BEGIN
-		SELECT u3.id,
-        em.id as idEmpleado,
-        r3.nombre as rol,
-		u3.usuario, u3.fechaAlta,
-        u3.fechaBaja FROM usuarios u3
-		join roles r3 on r3.id = u3.idRol
-        join empleados em on em.idUsuario = u3.id
-		where u3.usuario=usuario1 and u3.contrasenia=contrasenia1;
-		END;
+    IF (role <> 'Socio' AND role IS NOT NULL) THEN
+        BEGIN
+            DECLARE aceptoTerminosVal BOOLEAN;
+            SELECT u1.aceptoTerminos INTO aceptoTerminosVal FROM Usuarios u1 WHERE u1.usuario = usuario1;
+
+            IF (aceptoTerminosVal OR aceptoTerminos) THEN
+                UPDATE Usuarios SET aceptoTerminos = TRUE WHERE usuario = usuario1;
+                SELECT u3.id,
+                    em.id AS idEmpleado,
+                    r3.nombre AS rol,
+                    u3.usuario, u3.fechaAlta,
+                    u3.fechaBaja
+                FROM usuarios u3
+                JOIN roles r3 ON r3.id = u3.idRol
+                JOIN empleados em ON em.idUsuario = u3.id
+                WHERE u3.usuario = usuario1 AND u3.contrasenia = contrasenia1;
+            ELSE
+                SELECT 'Debes aceptar los Términos y condiciones' AS mensaje;
+            END IF;
+        END;
     ELSE
-		BEGIN
-        SELECT u2.id,
-        so.id as idSocio,
-        r2.nombre as rol,
-		u2.usuario, u2.fechaAlta,
-        u2.fechaBaja FROM usuarios u2
-		join roles r2 on r2.id = u2.idRol
-        join socios so on so.idUsuario = u2.id
-		where u2.usuario=usuario1 and u2.contrasenia=contrasenia1;
-		END;
+        BEGIN
+            DECLARE aceptoTerminosVal BOOLEAN;
+            SELECT u1.aceptoTerminos INTO aceptoTerminosVal FROM Usuarios u1 WHERE u1.usuario = usuario1;
+
+            IF (aceptoTerminosVal OR aceptoTerminos) THEN
+                UPDATE Usuarios SET aceptoTerminos = TRUE WHERE usuario = usuario1;
+                SELECT u2.id,
+                    so.id AS idSocio,
+                    r2.nombre AS rol,
+                    u2.usuario, u2.fechaAlta,
+                    u2.fechaBaja
+                FROM usuarios u2
+                JOIN roles r2 ON r2.id = u2.idRol
+                JOIN socios so ON so.idUsuario = u2.id
+                WHERE u2.usuario = usuario1 AND u2.contrasenia = contrasenia1;
+            ELSE
+                SELECT 'Debes aceptar los Términos y condiciones' AS mensaje;
+            END IF;
+        END;
     END IF;
 END //
 
