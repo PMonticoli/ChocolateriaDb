@@ -14,6 +14,7 @@ CREATE TABLE `chocolateriaDB`.`Usuarios` (
 	`contrasenia` varchar(32) NOT NULL,
 	`fechaAlta` datetime NOT NULL,
 	`fechaBaja` datetime,
+	`aceptoTerminos` BOOLEAN NOT NULL DEFAULT FALSE,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`idRol`) REFERENCES Roles(`id`)
 );
