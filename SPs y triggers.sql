@@ -391,13 +391,38 @@ END //
 
 -- Cancelar un pedido
 CREATE PROCEDURE spCancelarPedido(
-	IN idPedido INT
+    IN idPedido INT
 )
 BEGIN
-	select id from estadospedido
-    where nombre = 'Cancelado'
-    into @idCancel;
-    update pedidos p set p.idEstado = @idCancel where p.id = idPedido;
+    DECLARE idCancel INT;
+    DECLARE cantidadProductos INT;
+    
+    -- Obtener el id del estado "Cancelado"
+    SELECT id INTO idCancel
+    FROM estadospedido
+    WHERE nombre = 'Cancelado';
+    -- Actualizar el estado del pedido a "Cancelado"
+    UPDATE pedidos
+    SET idEstado = idCancel
+    WHERE id = idPedido;
+    -- Obtener la cantidad de productos en el pedido
+    SELECT COUNT(*) INTO cantidadProductos
+    FROM detallespedido
+    WHERE idPedido = idPedido;
+    -- Actualizar el stock de los productos cancelados
+    UPDATE Productos p
+    INNER JOIN detallespedido d ON p.id = d.idProducto
+    SET p.stock = p.stock + d.cantidad
+    WHERE d.idPedido = idPedido;
+
+    -- Actualizar la disponibilidad de los productos cancelados
+    UPDATE Productos p
+    INNER JOIN detallespedido d ON p.id = d.idProducto
+    SET p.disponible = TRUE
+    WHERE d.idPedido = idPedido;
+
+    -- Retornar la cantidad de productos cancelados
+    SELECT cantidadProductos AS 'Cantidad de Productos Cancelados';
 END//
 
 -- Borrar un detalle por ID
