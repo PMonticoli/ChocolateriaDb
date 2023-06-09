@@ -953,16 +953,18 @@ END //
 -- Reporte SOCIOS
 -- Cantidad de pedidos por periodo que realizaron los socios
 CREATE PROCEDURE spCantPedidosPeriodo(
-IN fechaDesde datetime,
-IN fechaHasta datetime
+    IN fechaDesde DATETIME,
+    IN fechaHasta DATETIME
 )
 BEGIN
-	SELECT s.id ID,CONCAT(s.apellido,' ',s.nombre) as 'socio',s.dni,count(p.id) as 'cantPedidos'
-    FROM socios s join pedidos p on s.id=p.idSocio
-    WHERE fechaPedido between fechaDesde and fechaHasta
-    GROUP BY s.id,socio,s.dni
-	ORDER BY cantPedidos DESC;
-END //
+    SELECT s.id AS ID, CONCAT(s.apellido, ' ', s.nombre) AS 'socio', s.dni, COUNT(p.id) AS 'cantPedidos'
+    FROM socios s
+    JOIN pedidos p ON s.id = p.idSocio
+    JOIN estadospedido ep ON p.idEstado = ep.id AND ep.nombre = 'Entregado'
+    WHERE p.fechaPedido BETWEEN fechaDesde AND fechaHasta
+    GROUP BY s.id, socio, dni
+    ORDER BY cantPedidos DESC;
+END//
 
 -- Reporte PROMOCIONES
 -- Cantidad de veces que se canjeo cada promocion
