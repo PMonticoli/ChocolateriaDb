@@ -824,9 +824,9 @@ END //
 -- Cantidad de veces que vendi un determinado producto y promedio de unidades vendidas por pedido
 -- de cada producto 
 CREATE PROCEDURE spRankingCantidadProd(
-    IN fechaDesde datetime,
-    IN fechaHasta datetime,
-    IN limite int 
+    IN fechaDesde DATETIME,
+    IN fechaHasta DATETIME,
+    IN limite INT
 )
 BEGIN
     SELECT 
@@ -835,17 +835,18 @@ BEGIN
         SUM(dt.cantidad) AS 'cantidad'
     FROM detallespedido dt 
     JOIN productos p ON dt.idProducto = p.id 
-    JOIN pedidos pe ON dt.idPedido = pe.id
-    WHERE fechaPedido BETWEEN fechaDesde AND fechaHasta
+    JOIN pedidos pe ON dt.idPedido = pe.id AND pe.idEstado = (SELECT id FROM estadospedido WHERE nombre = 'Entregado')
+    WHERE pe.fechaPedido BETWEEN fechaDesde AND fechaHasta
     GROUP BY p.id, p.nombre
     ORDER BY cantidad DESC
     LIMIT limite;
 END//
 
+
 CREATE PROCEDURE spRankingPromedioProd(
-    IN fechaDesde datetime,
-    IN fechaHasta datetime,
-    IN limite int
+    IN fechaDesde DATETIME,
+    IN fechaHasta DATETIME,
+    IN limite INT
 )
 BEGIN
     SELECT 
@@ -854,12 +855,13 @@ BEGIN
         AVG(dt.cantidad) AS 'promedio'
     FROM detallespedido dt 
     JOIN productos p ON dt.idProducto = p.id 
-    JOIN pedidos pe ON dt.idPedido = pe.id
-    WHERE fechaPedido BETWEEN fechaDesde AND fechaHasta
+    JOIN pedidos pe ON dt.idPedido = pe.id AND pe.idEstado = (SELECT id FROM estadospedido WHERE nombre = 'Entregado')
+    WHERE pe.fechaPedido BETWEEN fechaDesde AND fechaHasta
     GROUP BY p.id, p.nombre
     ORDER BY promedio DESC
     LIMIT limite;
 END//
+
 
 -- Reportes PRODUCTOS
 CREATE PROCEDURE spReporteCantidadProd(
