@@ -13,7 +13,9 @@ BEGIN
     JOIN roles r1 ON r1.id = u1.idRol
     WHERE u1.usuario = usuario1 AND u1.contrasenia = contrasenia1;
 
-    IF (role <> 'Socio' AND role IS NOT NULL) THEN
+    IF (role IS NULL) THEN
+        SELECT 'Usuario y/o contraseña incorrectos' AS mensaje; 
+    ELSEIF (role <> 'Socio') THEN
         BEGIN
             DECLARE aceptoTerminosVal BOOLEAN;
             SELECT u1.aceptoTerminos INTO aceptoTerminosVal FROM Usuarios u1 WHERE u1.usuario = usuario1;
@@ -24,13 +26,14 @@ BEGIN
                     em.id AS idEmpleado,
                     r3.nombre AS rol,
                     u3.usuario, u3.fechaAlta,
-                    u3.fechaBaja
+                    u3.fechaBaja,
+                    '' AS mensaje
                 FROM usuarios u3
                 JOIN roles r3 ON r3.id = u3.idRol
                 JOIN empleados em ON em.idUsuario = u3.id
                 WHERE u3.usuario = usuario1 AND u3.contrasenia = contrasenia1;
             ELSE
-                SELECT 'Debes aceptar los Términos y condiciones' AS mensaje;
+                SELECT 'Debes aceptar los Términos y condiciones' AS mensaje; 
             END IF;
         END;
     ELSE
@@ -44,17 +47,18 @@ BEGIN
                     so.id AS idSocio,
                     r2.nombre AS rol,
                     u2.usuario, u2.fechaAlta,
-                    u2.fechaBaja
+                    u2.fechaBaja,
+                    '' AS mensaje
                 FROM usuarios u2
                 JOIN roles r2 ON r2.id = u2.idRol
                 JOIN socios so ON so.idUsuario = u2.id
                 WHERE u2.usuario = usuario1 AND u2.contrasenia = contrasenia1;
             ELSE
-                SELECT 'Debes aceptar los Términos y condiciones' AS mensaje;
+                SELECT 'Debes aceptar los Términos y condiciones' AS mensaje; -- Mensaje para aceptar los términos y condiciones
             END IF;
         END;
     END IF;
-END //
+END//
 
 -- Nuevo usuario socio
 CREATE PROCEDURE spNuevoUsuarioSocio(
