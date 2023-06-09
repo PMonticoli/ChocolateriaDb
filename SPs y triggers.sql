@@ -384,8 +384,8 @@ CREATE PROCEDURE spObtenerDetalles(
 BEGIN
     select idDetalle, idProducto, pr.nombre as nombreProducto,
     cantidad, precioUnitario,
-    dp.puntosGanados, comentarios from detallespedido dp
-    join productos pr on pr.id = dp.idProducto
+    dp.puntosGanados, comentarios,p.observaciones from detallespedido dp
+    join productos pr on pr.id = dp.idProducto join pedidos p on p.id = dp.idPedido
     where idPedido = id;
 END //
 
