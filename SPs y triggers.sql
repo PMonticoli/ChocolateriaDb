@@ -396,7 +396,7 @@ CREATE PROCEDURE spCancelarPedido(
 BEGIN
     DECLARE idCancel INT;
     DECLARE cantidadProductos INT;
-    
+
     -- Obtener el id del estado "Cancelado"
     SELECT id INTO idCancel
     FROM estadospedido
@@ -612,12 +612,41 @@ END //
 
 -- Actualizar estado de pedido
 CREATE PROCEDURE spActualizarEstadoPedido(
-	IN idEstado1 int,
-    IN idPedido1 int
+    IN idEstado1 INT,
+    IN idPedido1 INT
 )
 BEGIN
-	UPDATE chocolateriaDB.pedidos set idEstado = idEstado1 where id = idPedido1;
-END //
+    DECLARE cantidadProductos INT;
+
+    -- Actualizar el estado del pedido
+    UPDATE pedidos
+    SET idEstado = idEstado1
+    WHERE id = idPedido1;
+
+    -- Verificar si el nuevo estado es "Cancelado"
+    IF idEstado1 = (SELECT id FROM estadospedido WHERE nombre = 'Cancelado') THEN
+        -- Obtener la cantidad de productos en el pedido
+        SELECT COUNT(*) INTO cantidadProductos
+        FROM detallespedido
+        WHERE idPedido = idPedido1;
+
+        -- Actualizar el stock de los productos cancelados
+        UPDATE Productos p
+        INNER JOIN detallespedido d ON p.id = d.idProducto
+        SET p.stock = p.stock + d.cantidad
+        WHERE d.idPedido = idPedido1;
+
+        -- Actualizar la disponibilidad de los productos cancelados
+        UPDATE Productos p
+        INNER JOIN detallespedido d ON p.id = d.idProducto
+        SET p.disponible = TRUE
+        WHERE d.idPedido = idPedido1;
+
+        -- Retornar la cantidad de productos cancelados
+        SELECT cantidadProductos AS 'Cantidad de Productos Cancelados';
+    END IF;
+END//
+
 
 
 
