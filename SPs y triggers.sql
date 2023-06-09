@@ -865,8 +865,8 @@ END//
 
 -- Reportes PRODUCTOS
 CREATE PROCEDURE spReporteCantidadProd(
-    IN fechaDesde datetime,
-    IN fechaHasta datetime 
+    IN fechaDesde DATETIME,
+    IN fechaHasta DATETIME 
 )
 BEGIN
     SELECT 
@@ -875,15 +875,16 @@ BEGIN
         SUM(dt.cantidad) AS 'cantidad'
     FROM detallespedido dt 
     JOIN productos p ON dt.idProducto = p.id 
-    JOIN pedidos pe ON dt.idPedido = pe.id
-    WHERE fechaPedido BETWEEN fechaDesde AND fechaHasta
+    JOIN pedidos pe ON dt.idPedido = pe.id AND pe.idEstado IN (SELECT id FROM estadospedido WHERE nombre IN ('Entregado', 'Cancelado'))
+    WHERE pe.fechaPedido BETWEEN fechaDesde AND fechaHasta
     GROUP BY p.id, p.nombre
     ORDER BY cantidad DESC;
 END//
 
+
 CREATE PROCEDURE spReportePromedioProd(
-    IN fechaDesde datetime,
-    IN fechaHasta datetime
+    IN fechaDesde DATETIME,
+    IN fechaHasta DATETIME
 )
 BEGIN
     SELECT 
@@ -892,11 +893,12 @@ BEGIN
         AVG(dt.cantidad) AS 'promedio'
     FROM detallespedido dt 
     JOIN productos p ON dt.idProducto = p.id 
-    JOIN pedidos pe ON dt.idPedido = pe.id
-    WHERE fechaPedido BETWEEN fechaDesde AND fechaHasta
+    JOIN pedidos pe ON dt.idPedido = pe.id AND pe.idEstado IN (SELECT id FROM estadospedido WHERE nombre IN ('Entregado', 'Cancelado'))
+    WHERE pe.fechaPedido BETWEEN fechaDesde AND fechaHasta
     GROUP BY p.id, p.nombre
     ORDER BY promedio DESC;
 END//
+
 
 -- Reporte SOCIOS
 -- Socios con mas puntos 
