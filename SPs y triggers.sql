@@ -325,6 +325,7 @@ BEGIN
     left join socios so on p.idSocio = so.id
     left join empleados em on p.idEmpleado = em.id
     join estadospedido ep on p.idEstado = ep.id
+    where ep.id = 3 or ep.id = 4
     order by fechaPedido desc;
 END //
 
