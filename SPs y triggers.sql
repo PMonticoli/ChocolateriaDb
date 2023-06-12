@@ -561,7 +561,7 @@ CREATE PROCEDURE spObtenerPromociones()
 BEGIN
 	SELECT p.id, p.nombre,p.descripcion,p.precioPuntos,p.fechaDesde,p.fechaHasta
     FROM promociones p
-    ORDER BY p.fechaDesde desc;
+    ORDER BY p.fechaHasta desc;
 END //
 
 
