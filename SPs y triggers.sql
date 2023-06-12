@@ -592,7 +592,8 @@ BEGIN
             JOIN Productos pr ON dp2.idProducto = pr.id
             WHERE dp2.idPromocion = p.id AND dp2.idProducto = dp.idProducto
         )
-    );
+    )
+    ORDER BY p.fechaHasta asc;
 END //
 
 -- GET promociones canjeadas
