@@ -986,15 +986,18 @@ END //
 
 -- Reporte COBROS
 CREATE PROCEDURE spReporteCobros(
-IN fechaDesde datetime,
-IN fechaHasta datetime
+    IN fechaDesde datetime,
+    IN fechaHasta datetime
 )
 BEGIN
-	SELECT c.idTipoPago 'idTipoPago', tp.nombre, count(tp.id) 'cantidadCobros',sum(c.montoCobrado) 'totalCobro'
-    FROM cobros c join tipospago tp on c.idTipoPago = tp.id
-    WHERE fechaCobro between fechaDesde and fechaHasta
-    GROUP BY c.idTipoPago
-    ORDER BY totalCobro desc;
+    SELECT c.idTipoPago AS 'idTipoPago', tp.nombre, COUNT(tp.id) AS 'cantidadCobros', SUM(c.montoCobrado) AS 'totalCobro'
+    FROM cobros c
+    JOIN pedidos p ON c.idPedido = p.id
+    JOIN estadospedido ep ON p.idEstado = ep.id AND ep.nombre = 'Entregado'
+    JOIN tipospago tp ON c.idTipoPago = tp.id
+    WHERE c.fechaCobro BETWEEN fechaDesde AND fechaHasta
+    GROUP BY c.idTipoPago, tp.nombre
+    ORDER BY totalCobro DESC;
 END //
 
 DELIMITER ;
