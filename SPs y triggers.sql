@@ -475,7 +475,8 @@ END //
 -- GET all socios
 CREATE PROCEDURE spObtenerSocios()
 BEGIN
-	select id, dni, nombre, apellido,fechaBaja,idUsuario,u.fechaBaja as 'fechaBajaUsuario' from socios s join usuarios u on s.idUsuario = u.id;
+	select s.id, s.dni, s.nombre, s.apellido,s.fechaBaja,s.idUsuario,u.fechaBaja as 'fechaBajaUsuario' 
+    from socios s join usuarios u on s.idUsuario = u.id;
 END //
 
 -- GET by ID
