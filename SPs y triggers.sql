@@ -877,6 +877,7 @@ END//
 
 
 -- Reportes PRODUCTOS
+--Reporte cantidad productos
 CREATE PROCEDURE spReporteCantidadProd(
     IN fechaDesde DATETIME,
     IN fechaHasta DATETIME 
@@ -894,7 +895,7 @@ BEGIN
     ORDER BY cantidad DESC;
 END//
 
-
+--Reporte promedio productos
 CREATE PROCEDURE spReportePromedioProd(
     IN fechaDesde DATETIME,
     IN fechaHasta DATETIME
